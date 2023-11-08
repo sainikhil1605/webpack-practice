@@ -33,6 +33,35 @@ module.exports = {
         // This type imports the file as a string without any processing and returns the string without modification
         type: "asset/source",
       },
+      {
+        test: /\.css$/,
+        //Css loader just loads the css files
+        // Style loader takes the css and injects it into the html file
+        // Loaders need to be installed seperately
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        //Css loader just loads the css files
+        // Style loader takes the css and injects it into the html file
+        // Loaders need to be installed seperately
+        //Loaders are applied from right to left
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        // Excluder node moduless
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            // Compiles the code to es5 from es6
+            presets: ["@babel/preset-env"],
+            // Allows us to use class properties
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+        },
+      },
     ],
   },
 };
