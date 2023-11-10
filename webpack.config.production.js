@@ -6,11 +6,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   // Two entry points need to be specified for two bundles
-  entry: {
-    // This is the key for the bundle and the value is the path to the file
-    "hello-world": "./src/hello-world.js",
-    kiwi: "./src/kiwi.js",
-  },
+  entry: "./src/index.js",
   output: {
     // Browser caches js and css files by file name so if we make changes to code it will not reflect in browser
     // So we need to change the file name when we make changes to code so that browser will not use the cached file
@@ -21,7 +17,7 @@ module.exports = {
     path: path.resolve(__dirname, "./dist"),
     // Concatinates this to src of the images or resources in the html file
     // publicPath: "http://some-cdn.com/",
-    publicPath: "",
+    publicPath: "/static/",
     // Gives same function as a cleanwebpackplugin
     // clean: {
     // Dry is used to test the clean plugin if true it will not delete the files but tells us which files will be deleted
@@ -125,20 +121,9 @@ module.exports = {
     // // }
     // If need need muiltiple html files we can use this plugin multiple times
     new HtmlWebpackPlugin({
-      filename: "hello-world.html",
-      title: "Hello World",
-      template: "src/page-template.hbs",
+      title: "Hello world",
       description: "Hello world",
-      minify: false,
-      chunks: ["hello-world"],
-    }),
-    new HtmlWebpackPlugin({
-      filename: "kiwi.html",
-      title: "Kiwi",
       template: "src/page-template.hbs",
-      description: "Kiwi",
-      minify: false,
-      chunks: ["kiwi"],
     }),
   ],
 };
