@@ -5,13 +5,17 @@ const path = require("path");
 // const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
-  entry: "./src/index.js",
+  entry: {
+    // This is the key for the bundle and the value is the path to the file
+    "hello-world": "./src/hello-world.js",
+    kiwi: "./src/kiwi.js",
+  },
   output: {
     // Browser caches js and css files by file name so if we make changes to code it will not reflect in browser
     // So we need to change the file name when we make changes to code so that browser will not use the cached file
     // We can use contenthash to generate a unique hash for the file name
     // New file is only generated when there is a change in the code
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "./dist"),
     // Concatinates this to src of the images or resources in the html file
     // publicPath: "http://some-cdn.com/",
@@ -118,9 +122,17 @@ module.exports = {
     // //   ],
     // // }
     new HtmlWebpackPlugin({
+      filename: "hello-world.html",
+      chunks: ["hello-world"],
       title: "Hello World",
-      template: "src/index.hbs",
-      description: "Some description",
+      template: "src/page-template.hbs",
+      description: "Hello world",
+    }),
+    new HtmlWebpackPlugin({
+      title: "Hello World",
+      chunks: ["kiwi"],
+      template: "src/page-template.hbs",
+      description: "Kiwi",
     }),
   ],
 };
